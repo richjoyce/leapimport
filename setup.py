@@ -15,7 +15,7 @@ requirements = [
 
 setup(
     name='leapimport',
-    version='0.1.0',
+    version='0.1.1',
     description="Simple package to import binary LeapMotion recording data.",
     long_description=readme + '\n\n' + history,
     author="Richard Joyce",
