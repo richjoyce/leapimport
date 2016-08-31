@@ -40,7 +40,10 @@ def leap_frames_to_hand_dataframe(filename, fingers=[0, 1, 2, 3, 4], palm=True):
     type_to_string = [ 'thumb', 'index', 'middle', 'ring', 'pinky' ]
 
     for frame in leap_frames(filename):
+        frame_processed_hands = []
         for hand in frame.hands:
+            if hand.id in frame_processed_hands:
+                continue
             if palm:
                 hand_data['palm_x'].append(hand.palm_position.x)
                 hand_data['palm_y'].append(hand.palm_position.y)
@@ -54,4 +57,5 @@ def leap_frames_to_hand_dataframe(filename, fingers=[0, 1, 2, 3, 4], palm=True):
             hand_data['confidence'].append(hand.confidence)
             hand_data['id'].append(hand.id)
             hand_data['type'].append("right" if hand.is_right else "left")
+            frame_processed_hands.append(hand.id)
     return pd.DataFrame.from_dict(hand_data)
