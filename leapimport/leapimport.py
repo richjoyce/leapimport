@@ -24,7 +24,7 @@ def leap_frames_to_hand_dataframe(filename, fingers=[0, 1, 2, 3, 4], palm=True):
     """
     Convert binary LeapMotion data from `filename` to a dataframe with
     palm and fingertip information from each LeapMotion frame. Columns are:
-    `timestamp, confidence, id, type, palm_x, palm_y, ...`
+    `timestamp, confidence, id, is_right, palm_x, palm_y, ...`
 
     One row corresponds to one hand, so frames with multiple hands will
     have multiple rows.
@@ -55,7 +55,8 @@ def leap_frames_to_hand_dataframe(filename, fingers=[0, 1, 2, 3, 4], palm=True):
                 hand_data[type_to_string[finger.type]+'_z'].append(finger.tip_position.z)
             hand_data['timestamp'].append(frame.timestamp)
             hand_data['confidence'].append(hand.confidence)
-            hand_data['id'].append(hand.id)
-            hand_data['type'].append("right" if hand.is_right else "left")
+            hand_data['hand_id'].append(hand.id)
+            hand_data['frame_id'].append(frame.id)
+            hand_data['is_right'].append(hand.is_right)
             frame_processed_hands.append(hand.id)
     return pd.DataFrame.from_dict(hand_data)
