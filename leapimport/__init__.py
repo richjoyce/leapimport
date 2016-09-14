@@ -2,6 +2,6 @@
 
 __author__ = 'Richard Joyce'
 __email__ = 'rjoyce@ucdavis.edu'
-__version__ = '0.1.2'
+__version__ = '0.2.0'
 
 from leapimport import leap_frames, leap_frames_to_hand_dataframe
