@@ -6,6 +6,7 @@ import ctypes
 # Need to call this before running any Leap functions
 Leap.Controller()
 
+
 def leap_frames(filename):
     """List generator of `Leap.Frame` from raw LeapMotion binary file."""
     with open(filename, 'rb') as file_:
@@ -19,6 +20,7 @@ def leap_frames(filename):
             frame.deserialize((frame_data, frame_size))
             frame_size_data = file_.read(4)
             yield frame
+
 
 def leap_frames_to_hand_dataframe(filename, fingers=[0, 1, 2, 3, 4], palm=True):
     """
@@ -37,7 +39,7 @@ def leap_frames_to_hand_dataframe(filename, fingers=[0, 1, 2, 3, 4], palm=True):
     import collections
     hand_data = collections.defaultdict(list)
     # this array is accessed using the finger.type attribute which translates from 0-4
-    type_to_string = [ 'thumb', 'index', 'middle', 'ring', 'pinky' ]
+    type_to_string = ['thumb', 'index', 'middle', 'ring', 'pinky']
 
     for frame in leap_frames(filename):
         frame_processed_hands = []
